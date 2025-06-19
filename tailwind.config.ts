@@ -6,31 +6,45 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
       colors: {
-        'primary': {
-          DEFAULT: '#2D1B69', // Violet foncé principal
-          light: '#3D2B79',
-          dark: '#1D0B59'
+        primary: {
+          DEFAULT: '#6B46C1',
+          dark: '#553C9A',
         },
-        'accent': {
-          DEFAULT: '#FFD700', // Or/Jaune pour les accents
-          light: '#FFE44D',
-          dark: '#B39700'
+        'accent-yellow': '#F59E0B',
+        'accent-orange': '#F97316',
+        'accent-red': '#EF4444',
+        'accent-green': '#10B981',
+        'accent-blue': '#3B82F6',
+        'accent-purple': '#8B5CF6',
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.5s ease-in-out',
+        'slide-up': 'slideUp 0.5s ease-out',
+        'bounce-in': 'bounceIn 0.6s ease-out',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
         },
-        'secondary': {
-          DEFAULT: '#4B3B89', // Violet plus clair
-          light: '#5B4B99',
-          dark: '#3B2B79'
-        }
-      }
+        slideUp: {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        bounceIn: {
+          '0%': { transform: 'scale(0.3)', opacity: '0' },
+          '50%': { transform: 'scale(1.05)' },
+          '70%': { transform: 'scale(0.9)' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        },
+      },
     },
   },
   plugins: [],
 }
+
 export default config 

@@ -1,61 +1,205 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useState } from 'react';
+import ThemeToggle from './ThemeToggle';
 
 const navigation = [
   { name: 'Accueil', href: '/' },
   { name: 'À Propos', href: '/about' },
   { name: 'Expertises', href: '/expertises' },
-  { name: 'La Méthode', href: '/methode' },
-  { name: 'Portfolio', href: '/portfolio' },
-  { name: 'Shop', href: '/shop' },
+  { name: 'Stratégie', href: '/strategie' },
+  { name: 'Projets', href: '/portfolio' },
+  { name: 'La Tribu', href: '/tribu' },
   { name: 'Contact', href: '/contact' }
 ];
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="bg-primary text-white fixed w-full z-50 shadow-lg">
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      isScrolled 
+        ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-gray-200/50 dark:border-gray-700/50' 
+        : 'bg-transparent'
+    }`}>
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="flex justify-between items-center h-20">
-            {/* Logo */}
-            <Link href="/" className="text-2xl font-light hover:text-accent transition-colors">
-              Ted
-            </Link>
-
-            {/* Navigation */}
-            <div className="hidden md:flex space-x-8">
-              <Link href="/expertises/branding" className="hover:text-accent transition-colors">
-                Branding
-              </Link>
-              <Link href="/expertises/marketing" className="hover:text-accent transition-colors">
-                Marketing
-              </Link>
-              <Link href="/expertises/web" className="hover:text-accent transition-colors">
-                Web
-              </Link>
-              <Link href="/expertises/coaching" className="hover:text-accent transition-colors">
-                Coaching
-              </Link>
-              <Link 
-                href="/contact"
-                className="px-4 py-2 bg-accent text-primary font-medium rounded-full hover:bg-accent-light transition-colors"
-              >
-                Contact
-              </Link>
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="w-10 h-10 bg-gradient-to-br from-accent-yellow via-accent-orange to-accent-red rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">DT</span>
             </div>
+            <span className={`text-xl font-bold transition-colors ${
+              isScrolled 
+                ? 'text-gray-900 dark:text-white' 
+                : 'text-white dark:text-white'
+            }`}>
+              Digital Tribe
+            </span>
+          </Link>
 
-            {/* Menu mobile */}
-            <button className="md:hidden text-white hover:text-accent transition-colors">
+          {/* Navigation Desktop */}
+          <div className="hidden md:flex items-center space-x-8">
+            <Link href="/" className={`transition-colors font-medium ${
+              isScrolled 
+                ? 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow' 
+                : 'text-white/90 dark:text-gray-300 hover:text-white dark:hover:text-accent-yellow'
+            }`}>
+              Accueil
+            </Link>
+            <Link href="/about" className={`transition-colors font-medium ${
+              isScrolled 
+                ? 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow' 
+                : 'text-white/90 dark:text-gray-300 hover:text-white dark:hover:text-accent-yellow'
+            }`}>
+              À propos
+            </Link>
+            <div className="relative group">
+              <button className={`transition-colors flex items-center font-medium ${
+                isScrolled 
+                  ? 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow' 
+                  : 'text-white/90 dark:text-gray-300 hover:text-white dark:hover:text-accent-yellow'
+              }`}>
+                Expertises
+                <svg className="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div className="absolute top-full left-0 mt-2 w-48 bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-lg shadow-xl border border-gray-200/50 dark:border-gray-700/50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+                <Link href="/expertises/branding" className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-t-lg transition-colors">
+                  Branding
+                </Link>
+                <Link href="/expertises/marketing" className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  Marketing
+                </Link>
+                <Link href="/expertises/web" className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  Web
+                </Link>
+                <Link href="/expertises/coaching" className="block px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-b-lg transition-colors">
+                  Coaching
+                </Link>
+              </div>
+            </div>
+            <Link href="/strategie" className={`transition-colors font-medium ${
+              isScrolled 
+                ? 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow' 
+                : 'text-white/90 dark:text-gray-300 hover:text-white dark:hover:text-accent-yellow'
+            }`}>
+              Stratégie
+            </Link>
+            <Link href="/portfolio" className={`transition-colors font-medium ${
+              isScrolled 
+                ? 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow' 
+                : 'text-white/90 dark:text-gray-300 hover:text-white dark:hover:text-accent-yellow'
+            }`}>
+              Projets
+            </Link>
+            <Link href="/tribu" className={`transition-colors font-medium ${
+              isScrolled 
+                ? 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow' 
+                : 'text-white/90 dark:text-gray-300 hover:text-white dark:hover:text-accent-yellow'
+            }`}>
+              La Tribu
+            </Link>
+            <Link href="/contact" className={`transition-colors font-medium ${
+              isScrolled 
+                ? 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow' 
+                : 'text-white/90 dark:text-gray-300 hover:text-white dark:hover:text-accent-yellow'
+            }`}>
+              Contact
+            </Link>
+          </div>
+
+          {/* Bouton thème et CTA */}
+          <div className="hidden md:flex items-center space-x-4">
+            <ThemeToggle />
+            <Link 
+              href="/contact"
+              className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors font-medium shadow-md hover:shadow-lg"
+            >
+              Commencer
+            </Link>
+          </div>
+
+          {/* Menu mobile */}
+          <div className="md:hidden flex items-center space-x-4">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className={`transition-colors ${
+                isScrolled 
+                  ? 'text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow' 
+                  : 'text-white/90 dark:text-gray-300 hover:text-white dark:hover:text-accent-yellow'
+              }`}
+            >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                {isMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
               </svg>
             </button>
           </div>
         </div>
+
+        {/* Menu mobile dropdown */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white/95 dark:bg-gray-800/95 backdrop-blur-md rounded-lg shadow-xl mt-4 p-4 border border-gray-200/50 dark:border-gray-700/50">
+            <div className="space-y-2">
+              <Link href="/" className="block text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow py-2 font-medium transition-colors">
+                Accueil
+              </Link>
+              <Link href="/about" className="block text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow py-2 font-medium transition-colors">
+                À propos
+              </Link>
+              <div className="space-y-1">
+                <div className="text-gray-700 dark:text-gray-300 font-semibold py-2">Expertises</div>
+                <Link href="/expertises/branding" className="block text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-accent-yellow py-1 pl-4 transition-colors">
+                  Branding
+                </Link>
+                <Link href="/expertises/marketing" className="block text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-accent-yellow py-1 pl-4 transition-colors">
+                  Marketing
+                </Link>
+                <Link href="/expertises/web" className="block text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-accent-yellow py-1 pl-4 transition-colors">
+                  Web
+                </Link>
+                <Link href="/expertises/coaching" className="block text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-accent-yellow py-1 pl-4 transition-colors">
+                  Coaching
+                </Link>
+              </div>
+              <Link href="/strategie" className="block text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow py-2 font-medium transition-colors">
+                Stratégie
+              </Link>
+              <Link href="/portfolio" className="block text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow py-2 font-medium transition-colors">
+                Projets
+              </Link>
+              <Link href="/tribu" className="block text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow py-2 font-medium transition-colors">
+                La Tribu
+              </Link>
+              <Link href="/contact" className="block text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-accent-yellow py-2 font-medium transition-colors">
+                Contact
+              </Link>
+              <Link 
+                href="/contact"
+                className="block bg-primary text-white px-4 py-3 rounded-lg hover:bg-primary-dark transition-colors text-center mt-4 font-medium shadow-md hover:shadow-lg"
+              >
+                Commencer
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

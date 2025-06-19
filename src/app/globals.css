@@ -2,14 +2,36 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Import des styles Swiper */
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+
 :root {
-  --foreground-rgb: 45, 27, 105;  /* primary color */
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 249, 250, 251;
+  /* Couleurs principales */
+  --primary-dark: #2D1B69;
+  --primary: #4B3B89;
+  --primary-light: #6A5BA9;
+  
+  /* Couleurs d'accent du logo */
+  --accent-yellow: #FFD700;
+  --accent-orange: #FF7F50;
+  --accent-red: #FF4B4B;
+  --accent-green: #4CAF50;
+  --accent-blue: #2196F3;
+  --accent-purple: #9C27B0;
+  
+  /* Couleurs de fond améliorées pour le mode clair */
+  --background-start-rgb: 252, 252, 253;
+  --background-end-rgb: 248, 250, 252;
+
+  /* Variables Swiper */
+  --swiper-theme-color: var(--primary);
+  --swiper-navigation-size: 24px;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: var(--primary-dark);
   background: linear-gradient(
     to bottom,
     rgb(var(--background-start-rgb)),
@@ -21,4 +43,149 @@ body {
   .container {
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
+  
+  /* Classes d'accent pour les éléments */
+  .accent-gradient {
+    @apply bg-gradient-to-r from-[var(--accent-yellow)] via-[var(--accent-orange)] to-[var(--accent-red)];
+  }
+  
+  .accent-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-[var(--accent-yellow)] via-[var(--accent-orange)] to-[var(--accent-red)];
+  }
+}
+
+/* Styles personnalisés pour Swiper */
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Styles pour le mode sombre */
+.dark {
+  color-scheme: dark;
+}
+
+/* Transitions fluides pour le changement de thème */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Styles personnalisés pour les composants */
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors duration-300 font-medium shadow-md hover:shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply bg-transparent border-2 border-primary text-primary dark:text-white px-6 py-3 rounded-lg hover:bg-primary hover:text-white transition-colors duration-300 font-medium shadow-md hover:shadow-lg;
+  }
+  
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-100 dark:border-gray-700;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-accent-yellow via-accent-orange to-accent-red bg-clip-text text-transparent;
+  }
+  
+  .gradient-bg {
+    @apply bg-gradient-to-br from-primary via-accent-purple to-accent-blue;
+  }
+  
+  .accent-circle {
+    @apply absolute w-32 h-32 rounded-full opacity-10 blur-xl;
+  }
+  
+  .accent-circle-1 {
+    @apply bg-accent-yellow top-10 left-10;
+  }
+  
+  .accent-circle-2 {
+    @apply bg-accent-orange top-20 right-20;
+  }
+  
+  .accent-circle-3 {
+    @apply bg-accent-red bottom-10 left-20;
+  }
+  
+  .accent-circle-4 {
+    @apply bg-accent-purple bottom-20 right-10;
+  }
+  
+  /* Cercles d'accent pour le mode clair */
+  .light-accent-circle-1 {
+    @apply bg-accent-yellow top-10 left-10;
+  }
+  
+  .light-accent-circle-2 {
+    @apply bg-accent-purple top-20 right-20;
+  }
+  
+  .light-accent-circle-3 {
+    @apply bg-accent-blue bottom-10 left-20;
+  }
+  
+  .light-accent-circle-4 {
+    @apply bg-accent-green bottom-20 right-10;
+  }
+}
+
+/* Animations personnalisées */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #6b7280;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
 } 
