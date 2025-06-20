@@ -116,14 +116,14 @@ export default function BookingModal({ isOpen, onClose }: BookingModalProps) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 animate-fade-in">
-      <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-slide-in">
+    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 animate-fade-in light">
+      <div className="bg-white dark:bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-slide-in">
         <div className="p-8">
           {/* Header */}
           <div className="flex justify-between items-center mb-8">
             <div>
-              <h2 className="text-3xl font-light text-primary mb-2">Réserver votre appel découverte</h2>
-              <p className="text-gray-600">Remplissez le formulaire ci-dessous pour planifier votre appel gratuit de 30 minutes</p>
+              <h2 className="text-3xl font-light text-primary dark:text-primary mb-2">Réserver votre appel découverte</h2>
+              <p className="text-gray-600 dark:text-gray-600">Remplissez le formulaire ci-dessous pour planifier votre appel gratuit de 30 minutes</p>
             </div>
             <button 
               onClick={onClose}

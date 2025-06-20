@@ -64,7 +64,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center space-x-2">
             <Image
               src={isDark ? "/iconlogo.png" : "/iconlogolight.png"}
-              alt="Digital Tribe Logo"
+              alt="Tribe On Logo"
               width={60}
               height={60}
               className="rounded-lg"

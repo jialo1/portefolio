@@ -3,8 +3,11 @@
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useBookingModalStore } from '@/store/useBookingModalStore';
 
 export default function MarketingPage() {
+  const { openModal } = useBookingModalStore();
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -35,15 +38,15 @@ export default function MarketingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <Link 
-                href="/contact"
+              <button 
+                onClick={openModal}
                 className="inline-flex items-center px-8 py-4 text-lg bg-accent-orange text-primary font-medium rounded-xl hover:bg-accent-red transition-all transform hover:-translate-y-1 hover:shadow-lg"
               >
                 Discuter de votre projet
                 <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -144,15 +147,15 @@ export default function MarketingPage() {
             <p className="text-xl text-gray-300 mb-10">
               Discutons de votre stratégie marketing et créons ensemble un plan d'action pour votre croissance.
             </p>
-            <Link 
-              href="/contact"
+            <button 
+              onClick={openModal}
               className="inline-flex items-center px-8 py-4 text-lg bg-accent-orange text-primary font-medium rounded-xl hover:bg-accent-red transition-all transform hover:-translate-y-1 hover:shadow-lg"
             >
               Commencer votre projet
               <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </Link>
+            </button>
           </div>
         </div>
       </section>

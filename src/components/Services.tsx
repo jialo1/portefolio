@@ -3,6 +3,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import Link from 'next/link';
+import { useBookingModalStore } from '@/store/useBookingModalStore';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -49,6 +50,8 @@ const services = [
 ];
 
 export default function Services() {
+  const { openModal } = useBookingModalStore();
+
   return (
     <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50 dark:bg-gray-900">
       <div className="container mx-auto px-4">
@@ -147,12 +150,12 @@ export default function Services() {
 
           {/* CTA */}
           <div className="text-center mt-16">
-            <Link 
-              href="/expertises"
+            <button 
+              onClick={openModal}
               className="btn-primary text-lg px-8 py-4 shadow-2xl hover:shadow-accent-yellow/25 transition-all duration-300 transform hover:scale-105"
             >
-              Voir toutes mes expertises
-            </Link>
+              Commencer un projet
+            </button>
           </div>
         </div>
       </div>

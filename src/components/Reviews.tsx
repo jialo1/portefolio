@@ -13,7 +13,7 @@ const reviews = [
     id: 1,
     name: 'Marie Dubois',
     role: 'CEO, TechStart',
-    content: 'Digital Tribe a transformé notre identité de marque avec une créativité exceptionnelle. Son approche stratégique et son attention aux détails ont fait toute la différence.',
+    content: 'Tribe On a transformé notre identité de marque avec une créativité exceptionnelle. Son approche stratégique et son attention aux détails ont fait toute la différence.',
     rating: 5,
     avatar: '👩‍💼'
   },
@@ -21,7 +21,7 @@ const reviews = [
     id: 2,
     name: 'Thomas Martin',
     role: 'Fondateur, DigitalAgency',
-    content: 'Un partenaire de confiance pour tous nos projets web. Digital Tribe comprend parfaitement nos besoins et livre toujours des résultats qui dépassent nos attentes.',
+    content: 'Un partenaire de confiance pour tous nos projets web. Tribe On comprend parfaitement nos besoins et livre toujours des résultats qui dépassent nos attentes.',
     rating: 5,
     avatar: '👨‍💻'
   },
@@ -29,7 +29,7 @@ const reviews = [
     id: 3,
     name: 'Sophie Laurent',
     role: 'Marketing Manager, InnovCorp',
-    content: 'Grâce au coaching de Digital Tribe, j\'ai pu développer une stratégie marketing efficace qui a augmenté nos ventes de 40%. Un vrai professionnel !',
+    content: 'Grâce au coaching de Tribe On, j\'ai pu développer une stratégie marketing efficace qui a augmenté nos ventes de 40%. Un vrai professionnel !',
     rating: 5,
     avatar: '👩‍🎨'
   },
@@ -37,7 +37,7 @@ const reviews = [
     id: 4,
     name: 'Alexandre Moreau',
     role: 'Entrepreneur',
-    content: 'Digital Tribe m\'a accompagné dans la création de mon site e-commerce. Le résultat est magnifique et les performances sont au rendez-vous.',
+    content: 'Tribe On m\'a accompagné dans la création de mon site e-commerce. Le résultat est magnifique et les performances sont au rendez-vous.',
     rating: 5,
     avatar: '👨‍🚀'
   }
@@ -50,11 +50,11 @@ export default function Reviews() {
         <div className="max-w-6xl mx-auto">
           {/* En-tête */}
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-900 mb-6">
               Ce que disent mes{' '}
               <span className="gradient-text">clients</span>
             </h2>
-            <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-700 dark:text-gray-700 max-w-3xl mx-auto">
               Découvrez les témoignages de clients satisfaits qui ont transformé leur présence digitale avec moi.
             </p>
           </div>

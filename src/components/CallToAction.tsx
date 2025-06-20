@@ -1,10 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-import BookingModal from './BookingModal';
+import { useBookingModalStore } from '@/store/useBookingModalStore';
 
 export default function CallToAction() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { openModal } = useBookingModalStore();
 
   return (
     <section className="py-24 bg-gradient-to-br from-slate-100 via-blue-100 to-indigo-100 dark:from-primary dark:via-accent-purple dark:to-accent-blue relative overflow-hidden">
@@ -75,7 +74,7 @@ export default function CallToAction() {
           {/* Boutons d'action */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <button
-              onClick={() => setIsModalOpen(true)}
+              onClick={openModal}
               className="bg-accent-yellow text-gray-900 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-accent-orange transition-all duration-300 transform hover:scale-105 shadow-2xl hover:shadow-accent-yellow/25"
             >
               Réserver mon appel gratuit
@@ -94,9 +93,6 @@ export default function CallToAction() {
           </p>
         </div>
       </div>
-      
-      {/* Modal de réservation */}
-      <BookingModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 } 

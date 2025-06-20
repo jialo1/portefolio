@@ -1,8 +1,11 @@
 'use client';
 
 import Navbar from '@/components/Navbar';
+import { useBookingModalStore } from '@/store/useBookingModalStore';
 
 export default function BrandingPage() {
+  const { openModal } = useBookingModalStore();
+
   return (
     <div className="bg-white dark:bg-gray-900">
       <Navbar />
@@ -148,12 +151,12 @@ export default function BrandingPage() {
 
             {/* CTA */}
             <div className="text-center">
-              <a 
-                href="/contact"
+              <button 
+                onClick={openModal}
                 className="btn-primary text-lg px-8 py-4 shadow-2xl hover:shadow-accent-yellow/25 transition-all duration-300 transform hover:scale-105"
               >
                 Commencer votre projet de branding
-              </a>
+              </button>
             </div>
           </div>
         </div>

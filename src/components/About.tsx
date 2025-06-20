@@ -1,8 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import { useBookingModalStore } from '@/store/useBookingModalStore';
 
 export default function About() {
+  const { openModal } = useBookingModalStore();
+
   return (
     <section className="py-24 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:bg-gray-800">
       <div className="container mx-auto px-4">
@@ -10,17 +13,17 @@ export default function About() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Contenu texte */}
             <div>
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-900 mb-6">
                 À propos de{' '}
-                <span className="gradient-text">Digital Tribe</span>
+                <span className="gradient-text">Tribe On</span>
               </h2>
               
-              <p className="text-lg text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+              <p className="text-lg text-gray-700 dark:text-gray-700 mb-6 leading-relaxed">
                 Créateur digital passionné avec plus de 5 ans d'expérience, je combine créativité, 
                 stratégie et technologie pour donner vie à vos projets les plus ambitieux.
               </p>
               
-              <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
+              <p className="text-lg text-gray-700 dark:text-gray-700 mb-8 leading-relaxed">
                 Spécialisé en branding, marketing digital, développement web et coaching, 
                 j'accompagne entrepreneurs et entreprises dans leur transformation digitale 
                 avec une approche personnalisée et des résultats mesurables.
@@ -71,12 +74,12 @@ export default function About() {
 
               {/* Boutons */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link 
-                  href="/about"
+                <button 
+                  onClick={openModal}
                   className="btn-primary"
                 >
-                  En savoir plus
-                </Link>
+                  Commencer un projet
+                </button>
                 <Link 
                   href="/portfolio"
                   className="btn-secondary"
@@ -94,7 +97,7 @@ export default function About() {
                   <div className="aspect-square bg-gradient-to-br from-primary via-accent-purple to-accent-blue rounded-2xl flex items-center justify-center">
                     <div className="text-center text-white">
                       <div className="text-8xl mb-4">🌐</div>
-                      <div className="text-2xl font-bold">Digital Tribe</div>
+                      <div className="text-2xl font-bold">Tribe On</div>
                       <div className="text-lg opacity-80">Créateur Digital</div>
                     </div>
                   </div>

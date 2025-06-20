@@ -3,35 +3,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
-
-const projects = [
-  {
-    title: 'E-commerce Premium',
-    category: 'Développement Web',
-    description: 'Création d\'une boutique en ligne haut de gamme avec une expérience utilisateur exceptionnelle.',
-    image: '/placeholder.jpg'
-  },
-  {
-    title: 'Identité de Marque',
-    category: 'Branding',
-    description: 'Développement d\'une identité visuelle complète pour une marque de luxe.',
-    image: '/placeholder.jpg'
-  },
-  {
-    title: 'Plateforme Communautaire',
-    category: 'Développement Web',
-    description: 'Création d\'une plateforme sociale pour les professionnels.',
-    image: '/placeholder.jpg'
-  },
-  {
-    title: 'Campagne Marketing',
-    category: 'Marketing Digital',
-    description: 'Stratégie et exécution d\'une campagne marketing multi-canal.',
-    image: '/placeholder.jpg'
-  }
-];
+import { useBookingModalStore } from '@/store/useBookingModalStore';
+import { categories, getProjectsByCategory } from '@/data/projects';
 
 export default function Portfolio() {
+  const { openModal } = useBookingModalStore();
+
   return (
     <div className="min-h-screen bg-white">
       <Navbar />
@@ -58,53 +35,74 @@ export default function Portfolio() {
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-300 mb-12 leading-relaxed">
-              Découvrez mes projets qui illustrent mon expertise et mon approche créative dans le développement web, le branding et le marketing digital.
+              Découvrez mes projets organisés par expertise. Chaque catégorie représente un aspect de mon approche créative et stratégique.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Projects Grid */}
+      {/* Categories Grid */}
       <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-light text-primary mb-4">Projets Récents</h2>
-              <p className="text-xl text-gray-600">Une sélection de mes meilleures réalisations</p>
+              <h2 className="text-4xl font-light text-primary mb-4">Mes Expertises</h2>
+              <p className="text-xl text-gray-600">Explorez mes projets par domaine de spécialisation</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {projects.map((project, index) => (
-                <div key={index} className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2">
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-accent-yellow/20 to-accent-orange/20 group-hover:from-accent-yellow/30 group-hover:to-accent-orange/30 transition-all z-10"></div>
-                    {/* Remplacer par de vraies images */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-dark"></div>
-                  </div>
-                  
-                  <div className="absolute inset-0 z-20 p-8 flex flex-col justify-between text-white">
-                    <div>
-                      <span className="text-sm uppercase tracking-wider text-gray-300 bg-white/20 px-3 py-1 rounded-full">
-                        {project.category}
-                      </span>
-                      <h3 className="text-2xl font-light mt-4 mb-4">{project.title}</h3>
-                      <p className="text-gray-200">{project.description}</p>
+              {categories.map((category, index) => {
+                const categoryProjects = getProjectsByCategory(category.name);
+                const previewProjects = categoryProjects.slice(0, 2); // Afficher seulement 2 projets en aperçu
+                
+                return (
+                  <div key={category.slug} className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-2">
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <div className={`absolute inset-0 bg-gradient-to-br from-${category.color}/20 to-${category.color}/40 group-hover:from-${category.color}/30 group-hover:to-${category.color}/50 transition-all z-10`}></div>
+                      {/* Image de fond pour la catégorie */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary to-primary-dark"></div>
                     </div>
                     
-                    <div className="mt-6">
-                      <Link 
-                        href="#"
-                        className="inline-flex items-center text-sm font-medium text-white hover:text-accent-yellow transition-colors"
-                      >
-                        Voir le projet
-                        <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                      </Link>
+                    <div className="absolute inset-0 z-20 p-8 flex flex-col justify-between text-white">
+                      <div>
+                        <span className="text-sm uppercase tracking-wider text-gray-300 bg-white/20 px-3 py-1 rounded-full">
+                          {category.name}
+                        </span>
+                        <h3 className="text-2xl font-light mt-4 mb-4">{category.name}</h3>
+                        <p className="text-gray-200 mb-6">{category.description}</p>
+                        
+                        {/* Aperçu des projets */}
+                        <div className="space-y-3">
+                          {previewProjects.map((project, projectIndex) => (
+                            <div key={projectIndex} className="flex items-center space-x-3">
+                              <div className={`w-2 h-2 bg-${category.color} rounded-full`}></div>
+                              <span className="text-sm text-gray-200">{project.title}</span>
+                            </div>
+                          ))}
+                          {categoryProjects.length > 2 && (
+                            <div className="flex items-center space-x-3">
+                              <div className={`w-2 h-2 bg-${category.color} rounded-full`}></div>
+                              <span className="text-sm text-gray-300">+{categoryProjects.length - 2} autres projets</span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div className="mt-6">
+                        <Link 
+                          href={`/portfolio/${category.slug}`}
+                          className="inline-flex items-center text-sm font-medium text-white hover:text-accent-yellow transition-colors"
+                        >
+                          Voir tous les projets {category.name}
+                          <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                          </svg>
+                        </Link>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
@@ -123,15 +121,15 @@ export default function Portfolio() {
             <p className="text-xl text-gray-300 mb-10">
               Discutons de votre projet et créons ensemble quelque chose de remarquable.
             </p>
-            <Link 
-              href="/contact"
+            <button
+              onClick={openModal}
               className="inline-flex items-center px-8 py-4 text-lg bg-accent-yellow text-primary font-medium rounded-xl hover:bg-accent-orange transition-all transform hover:-translate-y-1 hover:shadow-lg"
             >
               Commencer votre projet
               <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </Link>
+            </button>
           </div>
         </div>
       </section>
