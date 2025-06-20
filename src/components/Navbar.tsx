@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import ThemeToggle from './ThemeToggle';
 
 const navigation = [
@@ -17,6 +18,7 @@ const navigation = [
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,8 +26,31 @@ export default function Navbar() {
     };
 
     window.addEventListener('scroll', handleScroll);
+    
+    // Theme logic from ThemeToggle
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      setIsDark(true);
+      document.documentElement.classList.add('dark');
+    }
+
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const toggleTheme = () => {
+    const newTheme = !isDark;
+    setIsDark(newTheme);
+    
+    if (newTheme) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  };
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -37,16 +62,14 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-accent-yellow via-accent-orange to-accent-red rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">DT</span>
-            </div>
-            <span className={`text-xl font-bold transition-colors ${
-              isScrolled 
-                ? 'text-gray-900 dark:text-white' 
-                : 'text-white dark:text-white'
-            }`}>
-              Digital Tribe
-            </span>
+            <Image
+              src={isDark ? "/iconlogo.png" : "/iconlogolight.png"}
+              alt="Digital Tribe Logo"
+              width={60}
+              height={60}
+              className="rounded-lg"
+              style={{ width: 'auto', height: 'auto' }}
+            />
           </Link>
 
           {/* Navigation Desktop */}
@@ -123,7 +146,7 @@ export default function Navbar() {
 
           {/* Bouton thème et CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <ThemeToggle />
+            <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
             <Link 
               href="/contact"
               className="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors font-medium shadow-md hover:shadow-lg"
@@ -134,7 +157,7 @@ export default function Navbar() {
 
           {/* Menu mobile */}
           <div className="md:hidden flex items-center space-x-4">
-            <ThemeToggle />
+            <ThemeToggle isDark={isDark} toggleTheme={toggleTheme} />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className={`transition-colors ${

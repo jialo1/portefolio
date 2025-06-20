@@ -1,34 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+type ThemeToggleProps = {
+  isDark: boolean;
+  toggleTheme: () => void;
+};
 
-export default function ThemeToggle() {
-  const [isDark, setIsDark] = useState(false);
-
-  useEffect(() => {
-    // Récupérer le thème depuis localStorage au chargement
-    const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-      setIsDark(true);
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = !isDark;
-    setIsDark(newTheme);
-    
-    if (newTheme) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  };
-
+export default function ThemeToggle({ isDark, toggleTheme }: ThemeToggleProps) {
   return (
     <button
       onClick={toggleTheme}
